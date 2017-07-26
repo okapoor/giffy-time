@@ -7,6 +7,8 @@ var giphsgalore = $("#giphsgalore");
 var APIKey = "91f77c2fb99a4a739166601f74a2e385";
 var giphyURL="https://api.giphy.com/v1/gifs/search?"
 var state = "animate";
+var resultGifDiv;
+var resultGifPara;
 
 console.log("we loaded right")
 function loadSearch() {
@@ -37,8 +39,10 @@ function loadGifs() {
     }).done(function(result) {
 		console.log(result)
 		gifResult = result.data;
-
 		for (var i in gifResult) {
+			resultGifDiv = $("<div>");
+			resultGifDiv.addClass("giphimgdiv");
+			resultGifDiv.append("<p> Rating : " + gifResult[i].rating + "</p>");
 			resultGif = $("<img>");
 			resultGif.attr("data-value", gifResult[i].id);
 			resultGif.attr("animate-url", gifResult[i].images.fixed_height.url);
@@ -46,7 +50,10 @@ function loadGifs() {
 			resultGif.attr("state", "animate");
 			resultGif.addClass("giph");
 			resultGif.attr("src", gifResult[i].images.fixed_height.url);
-			giphsgalore.append(resultGif);
+
+			resultGifDiv.append(resultGif)
+
+			giphsgalore.append(resultGifDiv);
 
 		}
 
