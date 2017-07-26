@@ -9,16 +9,23 @@ var giphyURL="https://api.giphy.com/v1/gifs/search?"
 var state = "animate";
 var resultGifDiv;
 var resultGifPara;
+var usersSearched = [];
 
 console.log("we loaded right")
 function loadSearch() {
+
 	giphysearchbuttons = $("#giphysearchbuttons");
 	var usersearch = $("#usersearch").val();
-	searchbar = $("<button>");
-	searchbar.attr("data-value", usersearch );
-	searchbar.text(usersearch);
-	searchbar.addClass("btn btn-default btn-lg active giphybutton");
-	giphysearchbuttons.append(searchbar);
+	// console.log(typeof(usersSearched.indexOf(usersearch)))
+
+	if(usersSearched.indexOf(usersearch) === -1 ){
+		usersSearched.push(usersearch)
+		searchbar = $("<button>");
+		searchbar.attr("data-value", usersearch );
+		searchbar.text(usersearch);
+		searchbar.addClass("btn btn-info giphybutton");
+		giphysearchbuttons.append(searchbar);
+	}
 }
 
 
@@ -40,20 +47,26 @@ function loadGifs() {
 		console.log(result)
 		gifResult = result.data;
 		for (var i in gifResult) {
+			var gifCard = $("<div>");
+			gifCard.addClass("card giphimgdiv");
+
 			resultGifDiv = $("<div>");
-			resultGifDiv.addClass("giphimgdiv");
-			resultGifDiv.append("<p> Rating : " + gifResult[i].rating + "</p>");
+			resultGifDiv.addClass("card-block");
+			resultGifDiv.append("<p class='card-text'> Rating : " + gifResult[i].rating + "</p>");
+
+
 			resultGif = $("<img>");
 			resultGif.attr("data-value", gifResult[i].id);
 			resultGif.attr("animate-url", gifResult[i].images.fixed_height.url);
 			resultGif.attr("still-url", gifResult[i].images.fixed_width_still.url);
 			resultGif.attr("state", "animate");
-			resultGif.addClass("giph");
+			resultGif.addClass("giph card-img-top");
 			resultGif.attr("src", gifResult[i].images.fixed_height.url);
 
-			resultGifDiv.append(resultGif)
+			gifCard.append(resultGif);
+			gifCard.append(resultGifDiv);
 
-			giphsgalore.append(resultGifDiv);
+			giphsgalore.append(gifCard);
 
 		}
 

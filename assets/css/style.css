@@ -1,15 +1,15 @@
 .giphybutton {
 	margin: 5px 5px 5px 5px;
-	background: green;
 }
 
 .giph {
 	margin: 5px 5px 5px 5px;
 	width:200px;
 	height: 200px;
-	/*display: inline-block;*/
+	display: inline-block;
 }
 
 .giphimgdiv {
 	display: inline-block;
+	margin: 5px 5px 5px 5px;
 }
